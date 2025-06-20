@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import LoginScreen from './screens/LoginScreen';
 import HomeLayout, { HomeNavigationTarget } from './screens/HomeLayout';
-import DetailsView from './screens/DetailsView';
+import DetailsScreen from './screens/DetailsScreen';
 import QRScannerScreen from './screens/QRScannerScreen';
 import { Job } from './services/JobService';
 
@@ -23,9 +23,9 @@ export default function App() {
 
   if (screen === 'Details' && selectedJob) {
     return (
-      <DetailsView title={selectedJob.title} onBack={() => setScreen('Home')}>
+      <DetailsScreen title={selectedJob.title} onBack={() => setScreen('Home')}>
         {/* Details content goes here */}
-      </DetailsView>
+      </DetailsScreen>
     );
   }
 
