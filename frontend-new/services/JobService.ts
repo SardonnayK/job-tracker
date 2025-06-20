@@ -1,6 +1,17 @@
 // JobService.ts
 export type JobStatus = 'Pending' | 'Approved' | 'In Progress' | 'Completed';
 
+export interface Worker {
+  name: string;
+  clockIn: string;
+  clockOut?: string;
+}
+
+export interface JobEvent {
+  timestamp: string;
+  description: string;
+}
+
 export interface Job {
   id: string;
   title: string;
@@ -9,6 +20,9 @@ export interface Job {
   riskAssessments: string[];
   sops: string[];
   approvals: { name: string; approved: boolean }[];
+  workers: Worker[];
+  events: JobEvent[];
+  location?: string;
 }
 
 const jobs: Job[] = [
@@ -23,6 +37,21 @@ const jobs: Job[] = [
       { name: 'Lab Supervisor', approved: false },
       { name: 'Quality Officer', approved: false },
     ],
+    workers: [
+      { name: 'Alice', clockIn: '2025-06-20T08:00', clockOut: undefined },
+      { name: 'Bob', clockIn: '2025-06-20T08:15', clockOut: '2025-06-20T12:00' },
+    ],
+    events: [
+      {
+        timestamp: '2025-06-20T09:00',
+        description: 'Sample B was contaminated, new sample collected.',
+      },
+      {
+        timestamp: '2025-06-20T10:30',
+        description: 'Section 3.2 of SOP not applicable for this soil type.',
+      },
+    ],
+    location: 'Field A',
   },
   {
     id: '2',
@@ -35,6 +64,9 @@ const jobs: Job[] = [
       { name: 'Lab Supervisor', approved: true },
       { name: 'Quality Officer', approved: true },
     ],
+    workers: [],
+    events: [],
+    location: 'Greenhouse 1',
   },
   {
     id: '3',
@@ -47,6 +79,9 @@ const jobs: Job[] = [
       { name: 'Lab Supervisor', approved: true },
       { name: 'Quality Officer', approved: true },
     ],
+    workers: [],
+    events: [],
+    location: 'Research Plot B',
   },
   {
     id: '4',
@@ -59,6 +94,9 @@ const jobs: Job[] = [
       { name: 'Lab Supervisor', approved: true },
       { name: 'Quality Officer', approved: true },
     ],
+    workers: [],
+    events: [],
+    location: 'Field C',
   },
   {
     id: '5',
@@ -71,6 +109,9 @@ const jobs: Job[] = [
       { name: 'Lab Supervisor', approved: false },
       { name: 'Quality Officer', approved: false },
     ],
+    workers: [],
+    events: [],
+    location: 'Experimental Plot C',
   },
 ];
 

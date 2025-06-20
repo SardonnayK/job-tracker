@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import LoginScreen from './screens/LoginScreen';
@@ -13,6 +13,25 @@ export default function App() {
   const [detailsTitle, setDetailsTitle] = useState('Job Details');
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
+  // Hydrate selectedJob from localStorage on mount
+  useEffect(() => {
+    const stored = localStorage.getItem('selectedJob');
+    if (stored) {
+      try {
+        setSelectedJob(JSON.parse(stored));
+      } catch {}
+    }
+  }, []);
+
+  // Save selectedJob to localStorage when it changes
+  useEffect(() => {
+    if (selectedJob) {
+      localStorage.setItem('selectedJob', JSON.stringify(selectedJob));
+    } else {
+      localStorage.removeItem('selectedJob');
+    }
+  }, [selectedJob]);
+
   if (!loggedIn) {
     return <LoginScreen onLogin={() => setLoggedIn(true)} />;
   }
@@ -23,9 +42,7 @@ export default function App() {
 
   if (screen === 'Details' && selectedJob) {
     return (
-      <DetailsScreen title={selectedJob.title} onBack={() => setScreen('Home')}>
-        {/* Details content goes here */}
-      </DetailsScreen>
+      <DetailsScreen title={selectedJob.title} onBack={() => setScreen('Home')} job={selectedJob} />
     );
   }
 
