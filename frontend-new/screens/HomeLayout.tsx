@@ -15,7 +15,7 @@ export type HomeNavigationTarget =
 export default function HomeLayout({
   onNavigate,
 }: {
-  onNavigate: (screen: HomeNavigationTarget) => void;
+  onNavigate?: (screen: HomeNavigationTarget) => void;
 }) {
   return (
     <View style={styles.background}>
@@ -31,17 +31,17 @@ export default function HomeLayout({
       </View>
       {/* Main Content */}
       <ScrollView contentContainerStyle={styles.contentScroll} style={styles.content}>
-        <JobList onSelectJob={(job) => onNavigate({ type: 'Details', job })} />
+        <JobList onSelectJob={(job) => onNavigate?.({ type: 'Details', job })} />
       </ScrollView>
       {/* Footer Navigation */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerButton} onPress={() => onNavigate('Home')}>
+        <TouchableOpacity style={styles.footerButton} onPress={() => onNavigate?.('Home')}>
           <Text>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.fab} onPress={() => onNavigate('QR')}>
+        <TouchableOpacity style={styles.fab} onPress={() => onNavigate?.('QR')}>
           <Ionicons name="qr-code-outline" size={28} color="#111827" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton} onPress={() => onNavigate('Settings')}>
+        <TouchableOpacity style={styles.footerButton} onPress={() => onNavigate?.('Settings')}>
           <Text>Settings</Text>
         </TouchableOpacity>
       </View>

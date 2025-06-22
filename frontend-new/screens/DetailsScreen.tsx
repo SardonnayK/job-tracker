@@ -5,21 +5,21 @@ import { Job } from '../services/JobService';
 
 interface DetailsScreenProps {
   title: string;
-  onBack: () => void;
+  onBack?: () => void;
   job?: Job;
 }
 
 export default function DetailsScreen({ title, onBack, job }: DetailsScreenProps) {
   if (!job) {
     return (
-      <PageLayout title={title} onBack={onBack}>
+      <PageLayout title={title} onBack={onBack || (() => {})}>
         <Text style={{ textAlign: 'center', marginTop: 32 }}>No job selected.</Text>
       </PageLayout>
     );
   }
 
   return (
-    <PageLayout title={title} onBack={onBack}>
+    <PageLayout title={title} onBack={onBack || (() => {})}>
       {/* Job Details Card */}
       <View style={styles.card}>
         <View

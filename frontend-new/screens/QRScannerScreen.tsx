@@ -3,11 +3,15 @@ import { Text, StyleSheet, TouchableOpacity, TextInput, View } from 'react-nativ
 import { Ionicons } from '@expo/vector-icons';
 import PageLayout from '../components/PageLayout';
 
-export default function QRScannerScreen({ onBack }: { onBack: () => void }) {
+export default function QRScannerScreen({ onBack }: { onBack?: () => void }) {
   const [manualId, setManualId] = useState('');
 
   return (
-    <PageLayout title="QR Code Scanner" onBack={onBack} contentStyle={{ alignItems: 'center' }}>
+    <PageLayout
+      title="QR Code Scanner"
+      onBack={onBack || (() => {})}
+      contentStyle={{ alignItems: 'center' }}
+    >
       <Text style={styles.title}>Scan a job QR code to view details and clock in/out</Text>
       <View style={styles.qrBox}>
         <Ionicons name="qr-code-outline" size={64} color="#bdbdbd" />
